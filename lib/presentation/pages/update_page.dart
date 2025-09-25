@@ -1,52 +1,42 @@
-import 'package:daily_diary_sqflite_flutter/data/models/diary.dart';
 import 'package:daily_diary_sqflite_flutter/presentation/providers/database_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AddPage extends StatefulWidget {
-  const AddPage({super.key});
+import '../../data/models/diary.dart';
+
+class UpdatePage extends StatefulWidget {
+  final Diary diary;
+  const UpdatePage({super.key, required this.diary});
 
   @override
-  State<AddPage> createState() => _AddPageState();
+  State<UpdatePage> createState() => _UpdatePageState();
 }
 
-class _AddPageState extends State<AddPage> {
-  final dateController = TextEditingController();
-  final monthController = TextEditingController();
-  final yearController = TextEditingController();
-  final titleController = TextEditingController();
-  final bodyController = TextEditingController();
+class _UpdatePageState extends State<UpdatePage> {
+  late final dateController = TextEditingController(text: widget.diary.date);
+  late final monthController = TextEditingController(text: widget.diary.month);
+  late final yearController = TextEditingController(text: widget.diary.year);
+  late final titleController = TextEditingController(text: widget.diary.title);
+  late final bodyController = TextEditingController(text: widget.diary.body);
 
-  void addDiary() async {
-    final date = dateController.text.trim();
-    final month = monthController.text.trim();
-    final year = yearController.text.trim();
-    final title = titleController.text.trim();
-    final body = bodyController.text.trim();
-
-    Diary newDiary = Diary(
-      id: null,
-      date: date.isEmpty ? null : date,
-      month: month.isEmpty ? null : month,
-      year: year.isEmpty ? null : year,
-      title: title,
-      body: body,
+  void updateDiary() async {
+    final Diary diary = Diary(
+      id: widget.diary.id,
+      date: dateController.text.isEmpty ? "🥱" : dateController.text,
+      month: monthController.text.isEmpty ? "🥱" : monthController.text.trim(),
+      year: yearController.text.isEmpty ? "🥱" : yearController.text.trim(),
+      title: titleController.text.trim(),
+      body: bodyController.text.trim(),
     );
 
     await Provider.of<DatabaseProvider>(
       context,
       listen: false,
-    ).addDiary(newDiary);
-
-    dateController.clear();
-    monthController.clear();
-    yearController.clear();
-    titleController.clear();
-    bodyController.clear();
-
+    ).updateDiary(diary);
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(SnackBar(content: Text("Diary successfully added")));
+    ).showSnackBar(SnackBar(content: Text("Updated successfully..")));
+    Navigator.pop(context);
   }
 
   @override
@@ -54,11 +44,11 @@ class _AddPageState extends State<AddPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Add new note to your diary..",
+          "Update your note..",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
         ),
         actions: [
-          IconButton(onPressed: addDiary, icon: Icon(Icons.check, size: 30)),
+          IconButton(onPressed: updateDiary, icon: Icon(Icons.check, size: 30)),
         ],
       ),
 

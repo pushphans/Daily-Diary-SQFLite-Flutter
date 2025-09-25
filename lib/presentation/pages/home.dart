@@ -12,6 +12,51 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  void openDeleteDialog(Diary diary) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Sure to Delete?"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text("This diary will be deleted permanently. You sure to delete?"),
+
+            SizedBox(height: 10),
+
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("Cancel"),
+                  ),
+
+                  SizedBox(width: 5),
+
+                  TextButton(
+                    onPressed: () async {
+                      Provider.of<DatabaseProvider>(
+                        context,
+                        listen: false,
+                      ).deleteDiary(diary);
+                      Navigator.pop(context);
+                    },
+                    child: Text("Yes"),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     Provider.of<DatabaseProvider>(context, listen: false).getDiaries();
@@ -55,6 +100,17 @@ class _HomeState extends State<Home> {
                         year: unit.year,
                         title: unit.title,
                         body: unit.body,
+                        onLongPress: () {
+                          openDeleteDialog(unit);
+                        },
+
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            '/update',
+                            arguments: unit,
+                          );
+                        },
                       ),
                     );
                   },

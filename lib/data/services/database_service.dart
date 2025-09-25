@@ -10,7 +10,7 @@ class DatabaseService {
       join(await getDatabasesPath(), "diary_database.db"),
       onCreate: (db, version) {
         db.execute(
-          'CREATE TABLE diary(Id INTEGER PRIMARY KEY AUTOINCREMENT, '
+          'CREATE TABLE diary(id INTEGER PRIMARY KEY AUTOINCREMENT, '
           'date TEXT,'
           ' month TEXT,'
           ' year TEXT,'

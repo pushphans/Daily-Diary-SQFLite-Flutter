@@ -18,6 +18,7 @@ class Diary {
   });
 
   Map<String, dynamic> toMap() => {
+    'id': id,
     'date': date,
     'month': month,
     'year': year,
