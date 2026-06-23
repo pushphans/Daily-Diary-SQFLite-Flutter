@@ -1,16 +1,30 @@
-# daily_diary_sqflite_flutter
+# Daily-Diary-SQFLite-Flutter
 
-A new Flutter project.
+A polished Flutter diary application built for recording daily thoughts, moods, and memories with local storage.
+
+## Overview
+This project is designed to provide a simple and personal journaling experience for users who want to save their daily reflections in a clean and organized mobile app.
+
+## Key Features
+- Create and manage diary entries
+- Store data locally using SQLite
+- Simple and intuitive user interface
+- Suitable for personal journaling and learning projects
+
+## Tech Stack
+- Flutter
+- Dart
+- SQLite
+
+## Project Highlights
+- Clean mobile UI design
+- Practical local database integration
+- Great example of stateful app development in Flutter
 
 ## Getting Started
+1. Clone the repository
+2. Install dependencies
+3. Run the app on your device or emulator
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Contact
+For questions or collaboration, reach out to @pushphans.
